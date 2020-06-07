@@ -111,8 +111,9 @@ muestraDeEjemplo = buscar busquedaEjemplo (mayor superficie) deptosDeEjemplo
 
 
 -- PUNTO 4 --
-{-Definir la función mailsDePersonasInteresadas que a partir de un departamento y una lista de personas retorne los mails de las personas que tienen alguna búsqueda que se cumpla para el departamento dado.-}
+{-Definir la función mailsDePersonasInteresadas que a partir de un departamento y una lista de personas retorne los mails de 
+las personas que tienen alguna búsqueda que se cumpla para el departamento dado.-}
 
-mailsDePersonasInteresadas :: Depto -> [Persona] -> [Mail
+mailsDePersonasInteresadas :: Depto -> [Persona] -> [Mail]
 mailsDePersonasInteresadas dpto = map mail .filter (any (cumpleBusqueda dpto) . busquedas) 
 --    where evaluarBusquedas = map (cumpleBusqueda dpto)
