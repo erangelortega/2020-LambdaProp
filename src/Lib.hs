@@ -81,3 +81,31 @@ al ser aplicada con el departamento se encuentra entre los dos valores indicados
 
 cumpleRango :: (Num a, Ord a) => (Depto -> a) -> a -> a -> Requisito
 cumpleRango f numr1 numr2 dpto = between numr1 numr2 . f $ dpto
+
+
+-- PUNTO 3 --
+{-Definir la función cumpleBusqueda que se cumple si todos los requisitos de una búsqueda se verifican para un departamento dado.-}
+
+cumpleBusqueda :: Depto -> Busqueda -> Bool
+cumpleBusqueda dpto = all ($ dpto) 
+
+
+{-Definir la función buscar que a partir de una búsqueda, un criterio de ordenamiento y una lista de departamentos retorne 
+todos aquellos que cumplen con la búsqueda ordenados en base al criterio recibido.-}
+
+buscar :: Busqueda -> (Depto -> Depto -> Bool) -> [Depto] -> [Depto]
+buscar busqueda criterioDeOrden = ordenarSegun criterioDeOrden . filter (flip cumpleBusqueda busqueda) 
+
+{- BUSQUEDA DE EJEMPLO
+    Mostrar un ejemplo de uso de buscar para obtener los departamentos de ejemplo, ordenado por mayor superficie, que cumplan con:
+    - Encontrarse en Recoleta o Palermo 
+    - Ser de 1 o 2 ambientes 
+    - Alquilarse a menos de $6000 por mes
+-}
+
+busquedaEjemplo :: Busqueda
+busquedaEjemplo = [ubicadoEn' ["Recoleta", "Palermo"], cumpleRango ambientes 1 2, cumpleRango precio 0 6000]
+
+muestraDeEjemplo :: [Depto]
+muestraDeEjemplo = buscar busquedaEjemplo (mayor superficie) deptosDeEjemplo
+
